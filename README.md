@@ -1,18 +1,12 @@
 # SlugLog
 SlugLog project to keep track of banana slugs
 
-# Remaining Tasks
-- Brush up the ui.
-- Add filters and dropdowns on the start menu.
-- Allow users to see most recently logged slug 
-- Communicate with back end to display all the markers
-    - Store the location, description, and image data into the database 
-    - Place markers from the database
-- Vision AI from Google Cloud to make sure all images are safe
-- Maybe calculate nearest slug based on distance 
-- Maybe allowing pins to disappear after a set amount of time to prevent clutter 
-- Maybe a thumbs up/thumbs down system where people can vote on how accurate a pin is 
-- Probably more I'm forgetting 
+# Important
+- It's a bit buggy on the emulator: it doesn't read the user's location correctly on the emulator
+unless they go onto the Google Maps app first and then set Location permissions there by 
+clicking "Your Location" there. Features should work as intended on the app if used on a real phone.
+- As of right now, there is a feature to allow users to enter in a description and picture for the marker,
+although placing down the pin does not actually show this description or picture yet.
 
 # Notices 
 - Android Studio has built in git functionality, lmk if you need help using that 
