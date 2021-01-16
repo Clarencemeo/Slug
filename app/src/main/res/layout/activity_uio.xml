@@ -108,14 +108,14 @@
         android:maxLines="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
+        app:layout_constraintVertical_bias="0.364" />
 
     <Button
         android:id="@+id/buttonimage"
-        android:layout_width="173dp"
+        android:layout_width="182dp"
         android:layout_height="72dp"
         android:background="#FFFFFF"
         android:text="@string/UploadImage"
@@ -123,9 +123,10 @@
         app:icon="@drawable/icon_slug"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947" />
+        app:layout_constraintVertical_bias="0.945" />
 
     <ImageView
         android:id="@+id/imageView"

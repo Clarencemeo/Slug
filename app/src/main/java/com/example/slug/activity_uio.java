@@ -97,7 +97,7 @@ public class activity_uio extends AppCompatActivity   {
             //so, inside "text input", it will store the value from the textboxes variable
             //this text input variable can be transferred between activties through the myIntent thingy
             //Log.v("EditText", textboxes.getText().toString());
-            if (textboxResult == null) {
+            if (textboxResult != null && !textboxResult.isEmpty()) {
                 myIntent.putExtra("textInput", textboxResult);
             }
             else {
