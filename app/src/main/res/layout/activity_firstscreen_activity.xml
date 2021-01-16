@@ -65,6 +65,7 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"

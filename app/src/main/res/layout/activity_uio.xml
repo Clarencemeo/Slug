@@ -83,6 +83,7 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
         app:drawableTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.227"
@@ -101,17 +102,17 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/textInputEditText"
-        android:layout_width="316dp"
+        android:layout_width="298dp"
         android:layout_height="105dp"
         android:hint="@string/EnterDesc"
         android:maxLength="175"
         android:maxLines="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364" />
+        app:layout_constraintVertical_bias="0.366" />
 
     <Button
         android:id="@+id/buttonimage"

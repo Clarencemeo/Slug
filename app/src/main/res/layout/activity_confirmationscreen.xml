@@ -47,7 +47,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Theme.Slug.NoActionBar"
         app:subtitleTextColor="#FFFFFF"
-        app:title="."
         app:titleTextColor="#000000" />
 
     <TextView
@@ -62,6 +61,7 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
