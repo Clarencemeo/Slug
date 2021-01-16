@@ -254,7 +254,10 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
     }
 
     //this function is responsible for drawing the markers with images and putting
-    //the circluar borders. We should use this every time we place a new pin down.
+    //the circluar borders. We should use this every time we place a new pin down
+    //from the database. HOWEVER, we might abandon this function and just stick
+    //with the default slug pins since it is difficult to store images in a database.
+    //For now, I would ignore this function.
     private void drawMarker(LatLng location, Uri imageurl) {
         Target mTarget = new Target() {
             @Override

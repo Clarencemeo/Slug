@@ -11,8 +11,8 @@
 
     <!-- Below are strings used in the layouts. -->
     <string name="SlugLog">SlugLog</string>
-    <string name="EnterDesc">Enter description...</string>
-    <string name="UploadImage">Upload Image</string>
+    <string name="EnterDesc">Enter description of slug!</string>
+    <string name="UploadImage">Take Picture!</string>
     <string name="maps_api_key">AIzaSyDTCkO4DVRPmkASaze3rWIkdT4sW0MNqWM</string>
     <string name="title_activity_firstscreen_activity">firstscreen_activity</string>
     <string name="Confirm">Confirm</string>
