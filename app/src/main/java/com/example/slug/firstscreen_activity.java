@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -34,9 +36,15 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -54,7 +62,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class firstscreen_activity extends AppCompatActivity implements OnMapReadyCallback {
     private boolean locationPermissionGranted = false;
@@ -69,6 +79,13 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
     private Bitmap bmp = null;
     private Marker currentLocationMarker;
     static Date currentTime;
+
+    //Firebase shiz
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference dataRef = db.collection("coords");
+    DocumentReference docWithCoords = dataRef.document();
+    public static final String TAG = "DatabaseUpload";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -151,8 +168,36 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
 
         getDeviceLocation();
 
+        plotExistingMarkers();
+
         //I think this is where we could communicate with the database. We could go through
         //the database and put down the pins
+    }
+
+    //38.2295, -122.8051
+
+    public void plotExistingMarkers() {
+        //iterates over collection and adds a marker using the document's long/lat values
+        dataRef
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                mapper.addMarker(new MarkerOptions()
+                                        .position(new LatLng(document.getDouble("latitude"), document.getDouble("longitude")))
+                                        .title("Marker")
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+
     }
 
     private void getLocationPermission() {
@@ -234,6 +279,26 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                 //Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                  //       R.drawable.slugger);
                                 //drawMarker(preciseLocation, getImageUri(getApplicationContext(), icon));
+
+                                //Storing Latitude and Longitude to Firestore database
+                                Map<String, Object> general = new HashMap<>();
+                                general.put("longitude", lastKnownLocation.getLongitude());
+                                general.put("latitude", lastKnownLocation.getLatitude());
+
+                                docWithCoords
+                                        .set(general)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "Doc successfully Written");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error uploading to database");
+                                            }
+                                        });
 
                             }
                         } else {
