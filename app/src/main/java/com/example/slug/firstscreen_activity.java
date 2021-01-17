@@ -82,8 +82,8 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
 
     //Firebase shiz
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference dataRef = db.collection("coords");
-    DocumentReference docWithCoords = dataRef.document();
+    CollectionReference coordsRef = db.collection("coords");
+    DocumentReference docWithCoords = coordsRef.document();
     public static final String TAG = "DatabaseUpload";
 
     @Override
@@ -178,7 +178,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
 
     public void plotExistingMarkers() {
         //iterates over collection and adds a marker using the document's long/lat values
-        dataRef
+        coordsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -188,7 +188,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 mapper.addMarker(new MarkerOptions()
                                         .position(new LatLng(document.getDouble("latitude"), document.getDouble("longitude")))
-                                        .title("Marker")
+                                        .title(document.getString("description"))
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
                             }
                         } else {
@@ -200,7 +200,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
 
     }
 
-    private void getLocationPermission() {
+    public void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
@@ -253,7 +253,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
         }
     }
 
-    private void getDeviceLocation() {
+    public void getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -276,11 +276,13 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                         .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()))
                                         .title("Current Location")
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
+
                                 //Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                  //       R.drawable.slugger);
                                 //drawMarker(preciseLocation, getImageUri(getApplicationContext(), icon));
 
-                                //Storing Latitude and Longitude to Firestore database
+                                /*Storing Latitude and Longitude to Firestore database
+
                                 Map<String, Object> general = new HashMap<>();
                                 general.put("longitude", lastKnownLocation.getLongitude());
                                 general.put("latitude", lastKnownLocation.getLatitude());
@@ -299,6 +301,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                                 Log.w(TAG, "Error uploading to database");
                                             }
                                         });
+                                */
 
                             }
                         } else {
