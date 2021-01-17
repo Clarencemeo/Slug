@@ -5,6 +5,7 @@
     android:id="@+id/coordinatorLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".confirmationscreen">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -115,6 +116,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="You entered this as your description: "
+        android:background="@drawable/layout_bg"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/include3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,6 +157,7 @@
         android:layout_height="43dp"
         android:paddingLeft="10dp"
         android:text="You took this picture:"
+        android:background="@drawable/layout_bg"
         android:fontFamily="sans-serif-medium"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/include3"

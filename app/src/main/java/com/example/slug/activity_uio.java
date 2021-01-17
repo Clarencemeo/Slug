@@ -101,7 +101,7 @@ public class activity_uio extends AppCompatActivity   {
                 myIntent.putExtra("textInput", textboxResult);
             }
             else {
-                myIntent.putExtra("textInput", "You didn't enter a description!");
+                myIntent.putExtra("textInput", "No description");
             }
             //we are also going to store the picture that was taken and transfer it over onto the next activity, as seen below
             myIntent.putExtra("thumbnail", imageBitmap);
