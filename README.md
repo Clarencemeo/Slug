@@ -1,5 +1,6 @@
 # SlugLog
-SlugLog project to keep track of banana slugs
+This project allows a user to see all the banana slugs that other users have found, and it
+allows the user to place down their own pins on a Google Map where they have found a banana slag.
 
 # How to Run
 After getting the repository onto Android Studio, either connect your Android phone or set up
