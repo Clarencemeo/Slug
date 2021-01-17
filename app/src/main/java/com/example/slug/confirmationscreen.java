@@ -1,9 +1,11 @@
 package com.example.slug;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.gms.common.api.Status;
@@ -20,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.Blob;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,12 +35,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +54,7 @@ public class confirmationscreen extends AppCompatActivity {
     private FusedLocationProviderClient getLocation;
     final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private Location lastKnownLocation;
+    static Date currentTime;
 
     //Firebase init
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -55,6 +63,7 @@ public class confirmationscreen extends AppCompatActivity {
     DocumentReference docWithCoords = coordsRef.document();
 
     public String textInputConfirm;
+    public Bitmap imageBitmapTransferred;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +74,7 @@ public class confirmationscreen extends AppCompatActivity {
 
         //These lines retrieve the variables from the last activity
         Intent intent = getIntent();
-        Bitmap imageBitmapTransferred = (Bitmap) intent.getParcelableExtra("thumbnail");
+        imageBitmapTransferred = (Bitmap) intent.getParcelableExtra("thumbnail");
         ImageView imageView = findViewById(R.id.confirmationImage);
         imageView.setImageBitmap(imageBitmapTransferred);
 
@@ -105,6 +114,15 @@ public class confirmationscreen extends AppCompatActivity {
 
 
 
+    }
+
+    public byte[] getImageByteArray(Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+        byte[] data = bytes.toByteArray();
+
+        return data;
     }
 
 
@@ -152,6 +170,7 @@ public class confirmationscreen extends AppCompatActivity {
                                 general.put("longitude", lastKnownLocation.getLongitude());
                                 general.put("latitude", lastKnownLocation.getLatitude());
                                 general.put("description", textInputConfirm);
+                                general.put("image-blob", Blob.fromBytes(getImageByteArray(imageBitmapTransferred)));
 
                                 docWithCoords
                                         .set(general)

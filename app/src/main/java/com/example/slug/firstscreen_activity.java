@@ -36,6 +36,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.Blob;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -83,7 +84,6 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
     //Firebase shiz
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference coordsRef = db.collection("coords");
-    DocumentReference docWithCoords = coordsRef.document();
     public static final String TAG = "DatabaseUpload";
 
     @Override
@@ -190,6 +190,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                         .position(new LatLng(document.getDouble("latitude"), document.getDouble("longitude")))
                                         .title(document.getString("description"))
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
+
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -274,34 +275,11 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                 LatLng preciseLocation = new LatLng (lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                                 mapper.addMarker(new MarkerOptions()
                                         .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()))
-                                        .title("Current Location")
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
+                                        .title("Current Location"));
 
                                 //Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                  //       R.drawable.slugger);
                                 //drawMarker(preciseLocation, getImageUri(getApplicationContext(), icon));
-
-                                /*Storing Latitude and Longitude to Firestore database
-
-                                Map<String, Object> general = new HashMap<>();
-                                general.put("longitude", lastKnownLocation.getLongitude());
-                                general.put("latitude", lastKnownLocation.getLatitude());
-
-                                docWithCoords
-                                        .set(general)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d(TAG, "Doc successfully Written");
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w(TAG, "Error uploading to database");
-                                            }
-                                        });
-                                */
 
                             }
                         } else {
@@ -326,15 +304,16 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
     //from the database. HOWEVER, we might abandon this function and just stick
     //with the default slug pins since it is difficult to store images in a database.
     //For now, I would ignore this function.
-    private void drawMarker(LatLng location, Uri imageurl) {
+    private void drawMarker(LatLng location, Bitmap bitmap, String description) {
+
         Target mTarget = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 Marker driver_marker = mapper.addMarker(new MarkerOptions()
                         .position(location)
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                        .title("Current Location.")
-                        .snippet("This is where you are. Hopefully there's some banana slugs around!")
+                        .title(description)
+
                 );
             }
 
@@ -350,7 +329,7 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
         };
 
         Picasso.get()
-                .load(imageurl)
+                .load(getImageUri(getApplicationContext(), bitmap))
                 .resize(200,200)
                 .centerCrop()
                 .transform(new CircleBubbleTransformation())
