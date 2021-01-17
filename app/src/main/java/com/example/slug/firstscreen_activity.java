@@ -274,11 +274,11 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
                                 LatLng preciseLocation = new LatLng (lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                                 mapper.addMarker(new MarkerOptions()
                                         .position(new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()))
-                                        .title("Current Location")
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
+                                        .title("Current Location"));
+                                        //.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_slug)));
                                 //Bitmap icon = BitmapFactory.decodeResource(getResources(),
                                  //       R.drawable.slugger);
-                                //drawMarker(preciseLocation, getImageUri(getApplicationContext(), icon));
+                                //drawMarker(preciseLocation, getImageUri(getApplicationContext(), icon), "Slug");
 
                                 //Storing Latitude and Longitude to Firestore database
                                 Map<String, Object> general = new HashMap<>();
@@ -323,15 +323,14 @@ public class firstscreen_activity extends AppCompatActivity implements OnMapRead
     //from the database. HOWEVER, we might abandon this function and just stick
     //with the default slug pins since it is difficult to store images in a database.
     //For now, I would ignore this function.
-    private void drawMarker(LatLng location, Uri imageurl) {
+    private void drawMarker(LatLng location, Uri imageurl, String titleInherit) {
         Target mTarget = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 Marker driver_marker = mapper.addMarker(new MarkerOptions()
                         .position(location)
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                        .title("Current Location.")
-                        .snippet("This is where you are. Hopefully there's some banana slugs around!")
+                        .title(titleInherit)
                 );
             }
 

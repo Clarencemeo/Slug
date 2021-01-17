@@ -112,7 +112,9 @@
         android:layout_width="274dp"
         android:layout_height="63dp"
         android:background="@drawable/layout_bg"
+        android:fontFamily="sans-serif-medium"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="You entered this as your description: "
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/include3"
@@ -133,6 +135,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.288" />
 
@@ -140,12 +143,13 @@
         android:id="@+id/confirmationImage"
         android:layout_width="240dp"
         android:layout_height="171dp"
+        android:background="@drawable/layout_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.397"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79"
+        app:layout_constraintVertical_bias="0.793"
         app:srcCompat="?attr/selectableItemBackground" />
 
     <TextView
@@ -155,6 +159,7 @@
         android:background="@drawable/layout_bg"
         android:paddingLeft="10dp"
         android:text="You took this picture:"
+        android:fontFamily="sans-serif-medium"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/include3"
         app:layout_constraintEnd_toEndOf="@+id/appBarLayout3"
