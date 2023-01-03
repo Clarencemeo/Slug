@@ -2,6 +2,14 @@
 This project allows a user to see all the banana slugs that other users have found, and it
 allows the user to place down their own pins on a Google Map where they have found a banana slag.
 
+# Pictures
+![image](https://user-images.githubusercontent.com/77476725/210345873-26c09b17-2e9d-492f-b978-e5889b876eff.png)
+![image](https://user-images.githubusercontent.com/77476725/210345891-bd273c2d-f063-48cb-9977-918e2fb605de.png)
+![image](https://user-images.githubusercontent.com/77476725/210345908-28663a48-d863-4093-957e-cd2fed9873fe.png)
+
+# Video Link
+https://www.youtube.com/watch?v=n_WWyYhB-10&t=8s
+
 # How to Run
 After getting the repository onto Android Studio, either connect your Android phone or set up
 the emulator through the AVD Manager. Then, click run on the top right to run the application.
